@@ -1,0 +1,59 @@
+﻿<Window x:Class="lab5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <CollectionViewSource x:Key="MyItemsView" Source="{Binding MyItems}" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="303*"/>
+            <RowDefinition Height="131*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="293*"/>
+            <ColumnDefinition Width="507*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Menu Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Загрузить">
+                    <MenuItem Header="Загрузить из json" Click="LoadJSON_MenuItem_Click"/>
+                    <MenuItem Header="Загрузить из xml"  Click="LoadXML_MenuItem_Click"/>
+                    <MenuItem Header="Загрузить из sql"  Click="LoadSQL_MenuItem_Click"/>
+                </MenuItem>
+                <MenuItem Header="Сохранить">
+                    <MenuItem Header="Сохранить в json"  Click="SaveJSON_MenuItem_Click"/>
+                    <MenuItem Header="Сохранить в xml"   Click="SaveXML_MenuItem_Click"/>
+                    <MenuItem Header="Сохранить в sql"   Click="SaveSQL_MenuItem_Click"/>
+                </MenuItem>
+                <MenuItem Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Редактировать каталог">
+                <MenuItem Header="Добавить композицию" Click="AddButton_Click"/>
+                <MenuItem Header="Удалить выбранную композицию" Click="DelButton_Click"/>
+            </MenuItem>
+        </Menu>
+        <ListView Name="myListView" Margin="0,25,10,33" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource MyItemsView}}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Автор" DisplayMemberBinding="{Binding author}" Width="300" />
+                    <GridViewColumn Header="Композиция" DisplayMemberBinding="{Binding song}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Name="myLabel" Content="" Margin="10,64,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="26" Grid.Row="1"/>
+        <Button Name="myFilterButton" Margin="53,282,0,0" VerticalAlignment="Top" Height="60" Grid.RowSpan="2" Click="FilterButton_Click" HorizontalAlignment="Left" Width="60">
+            <Image Name="myImage" Source="component/FilterOn.png" Width="20" Height="20" />
+        </Button>
+        <StackPanel x:Name="myStackPanel" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,303,8,0" Grid.RowSpan="2" Width="645" Height="25" Visibility="Hidden">
+            <ComboBox x:Name="myComboBox" Width="120"/>
+            <TextBox x:Name="myFilterText" TextWrapping="Wrap" Width="305"/>
+            <Button Content="Найти" Click="SearchButton_Click" Width="120"/>
+        </StackPanel>
+    </Grid>
+</Window>
